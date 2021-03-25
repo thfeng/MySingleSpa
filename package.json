@@ -1,0 +1,16 @@
+{
+  "name": "micro-frontend-frame",
+  "version": "1.0.0",
+  "description": "Micro frontend framework",
+  "main": "index.js",
+  "repository": "https://github.com/thfeng/micro-frontend-frame",
+  "author": "Tianhao Feng",
+  "license": "MIT",
+  "scripts": {
+    "dev": "rollup -c -w"
+  },
+  "devDependencies": {
+    "rollup": "^2.42.3",
+    "rollup-plugin-serve": "^1.1.0"
+  }
+}

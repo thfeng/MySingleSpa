@@ -1,0 +1,91 @@
+<!--
+ * @Author: Tianhao Feng
+ * @Date: 2021-03-24 16:28:06
+ * @LastEditTime: 2021-03-25 15:45:41
+ * @Description: 
+ * @FilePath: \micro-frontend-frame\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo</title>
+  <script>
+    function stateToApp(id) {
+      console.log('change state', `app${id}`);
+      history.pushState({}, '', `/app${id}`);
+    }
+  </script>
+</head>
+<body>
+  <h1>Micro Frontend</h1>
+
+  <nav>
+    <ul>
+      <li>
+        <a href="#/app1">Hash change to App 1</a>
+      </li>
+      <li>
+        <a href="#/app2">Hash change to App 2</a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" onclick="stateToApp(1)">History state change to App 1</a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" onclick="stateToApp(2)">History state change to App 2</a>
+      </li>
+    </ul>
+  </nav>
+
+  <script src="/lib/umd/micro-frontend.js"></script>
+  <script>
+    // register app
+    MicroFrontend.registerApplication('app1',
+      async (props) => {
+        console.log('loading app1');
+        return {
+          bootstrap: [async(props) => {
+            console.log('bootstrap app1 resource 1');
+          }, async(props) => {
+            console.log('bootstrap app1 resource 2');
+          }],
+          mount: async(props) => {
+            console.log('mount app1');
+          },
+          umount: async(props) => {
+            console.log('umount app1');
+          }
+        }
+      },
+      location => location.hash.startsWith('#/app1') || location.pathname.startsWith('/app1'),
+      {store: {name: 'user1', userId: '123'}}
+    );
+    
+    // register app
+    MicroFrontend.registerApplication('app2',
+      async (props) => {
+        console.log('loading app2');
+        return {
+          bootstrap: [async(props) => {
+            console.log('bootstrap app2 resource 1');
+          }, async(props) => {
+            console.log('bootstrap app2 resource 2');
+          }],
+          mount: async(props) => {
+            console.log('mount app2');
+          },
+          umount: async(props) => {
+            console.log('umount app2');
+          }
+        }
+      },
+      location => location.hash.startsWith('#/app2') || location.pathname.startsWith('/app2'),
+      {store: {name: 'user1', userId: '123'}}
+    );
+    
+    MicroFrontend.start();
+  </script>
+</body>
+</html>
