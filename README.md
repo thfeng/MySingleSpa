@@ -2,7 +2,9 @@
 self-implement framework follow Single-SPA
 
 # Run
-``
-yarn install
-yarn dev
-``
+<pre>
+  <code>yarn install</code>
+</pre>
+<pre>
+  <code>yarn dev</code>
+</pre>
